@@ -69,16 +69,10 @@
 			<version>0.9.1</version>
 		</dependency>
 
-		<!-- SQL SERVER 
+		<!-- SQL SERVER -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<scope>runtime</scope>
-		</dependency>-->
-		
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
