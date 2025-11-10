@@ -17,6 +17,7 @@ import br.com.alura.forum.controller.form.TopicoForm;
 import br.com.alura.forum.entity.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/topicos")
@@ -32,9 +33,10 @@ public class TopicosController {
 	 * Método para CADASTRAR tópicos
 	 * 
 	 * @param form
+	 * @Valid Identifica que quando os dados vierem da requisição, o spring rode as validações criada no TopicoForm
 	 */
 	@PostMapping
-	public ResponseEntity<TopicoDto> cadastrar(@RequestBody TopicoForm form, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 
 		Topico topico = form.coverter(cursoRepository);
 		topicoRepository.save(topico);
