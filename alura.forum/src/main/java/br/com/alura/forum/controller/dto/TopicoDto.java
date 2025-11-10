@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.alura.forum.entity.Topico;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -37,7 +36,7 @@ import lombok.Data;
  */
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 public class TopicoDto {
 
 	private Long id;
