@@ -1,13 +1,15 @@
 package br.com.alura.forum.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -119,17 +121,26 @@ public class TopicosController {
 	}
 
 	/**
-	 * Método para LISTAR todos os tópicos
+	 * Método para LISTAR todos os tópicos Paginação: receber todos os parametros
+	 * soltos no objeto Pageable paginacao(vem informaçõe sde paginação)
+	 * 
+	 * @EnableSpringDataWebSupport Habilita o suporte para o Spring pegar da
+	 *                             requisição, os parâmetros da url, os campos:
+	 *                             paginação e ordenação, e repassar isso para o
+	 *                             Spring data. Habiltar na classe main
+	 * Ordenar por múltiplos campos http://localhost:8080/topicos?page=0&size=6&sort=id,asc&sort=dataCriacao,desc
+	 * 
+	 * @PageableDefault quando não tem o parametro de ordenação ele considera o PageableDefault como padrão
 	 * 
 	 * @param nomeCurso
 	 * @param pagina
 	 * @param qtd
+	 * @param ordenacao
 	 * @return
 	 */
 	@GetMapping
-	public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso, @RequestParam int pagina, int qtd) {
-
-		Pageable paginacao = PageRequest.of(pagina, qtd);
+	public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso,
+			@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
 
 		if (nomeCurso == null) {
 

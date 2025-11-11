@@ -105,9 +105,9 @@ INSERT INTO CURSO(nome, categoria) VALUES('Curso de Programação 99', 'Programa
 INSERT INTO CURSO(nome, categoria) VALUES('Curso de Front-end 100', 'Front-end');
 
 
-INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
-INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida 2', 'Projeto não compila', '2019-05-05 19:00:00', 'NAO_RESPONDIDO', 1, 1);
-INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida 3', 'Tag HTML', '2019-05-05 20:00:00', 'NAO_RESPONDIDO', 1, 2);
+INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida', 'Erro ao criar projeto', '2019-10-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida 2', 'Projeto não compila', '2019-04-05 19:00:00', 'NAO_RESPONDIDO', 1, 1);
+INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida 3', 'Tag HTML', '2019-01-05 20:00:00', 'NAO_RESPONDIDO', 1, 2);
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida 1 sobre Curso 3', 'Mensagem da dúvida 1 para o curso 3.', '2024-05-25 10:04:01', 'NAO_RESPONDIDO', 1, 3);
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida 2 sobre Curso 3', 'Mensagem da dúvida 2 para o curso 3.', '2024-08-25 10:04:02', 'NAO_RESPONDIDO', 1, 3);
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id) VALUES('Dúvida 3 sobre Curso 3', 'Mensagem da dúvida 3 para o curso 3.', '2024-10-25 10:04:03', 'NAO_RESPONDIDO', 1, 3);
