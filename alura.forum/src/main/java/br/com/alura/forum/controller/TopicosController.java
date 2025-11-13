@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +50,7 @@ public class TopicosController {
 	 */
 	@DeleteMapping("/{id}")
 	@Transactional // Comitar as informações no banco
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<?> remover(@PathVariable Long id) {
 
 		Optional<Topico> optional = topicoRepository.findById(id);
@@ -70,6 +72,7 @@ public class TopicosController {
 	 */
 	@PutMapping("/{id}")
 	@Transactional // Comitar as informações no banco
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoTopicoForm form) {
 
 		Optional<Topico> optional = topicoRepository.findById(id);
@@ -103,12 +106,20 @@ public class TopicosController {
 	/**
 	 * Método para CADASTRAR tópicos
 	 * 
+	 * @CacheEvict Para informar para o Spring que limpe determinado cache (Invalidar). Neste
+	 *             exemplo queremos que limpe o Cacha informado no método LISTA
+	 *             (value = "listaDeTopicos") o valor allEntries igual a true limpa
+	 *             todos os registros, resumindo, sempre que inserir um novo
+	 *             registro é necessário limpar o cache para não devolver dados
+	 *             desatualizados para o usuário.
+	 * 
 	 * @param form
 	 * @Valid Identifica que quando os dados vierem da requisição, o spring rode as
 	 *        validações criada no TopicoForm
 	 */
 	@PostMapping
 	@Transactional // Comitar as informações no banco
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 
 		Topico topico = form.coverter(cursoRepository);
@@ -133,7 +144,8 @@ public class TopicosController {
 	 * @PageableDefault quando não tem o parametro de ordenação ele considera o
 	 *                  PageableDefault como padrão
 	 * 
-	 * @EnableCaching Para utilizar o cache, basta informar a anotação @Cacheable (org.springframework.cache.annotation.Cacheable)
+	 * @EnableCaching Para utilizar o cache, basta informar a anotação @Cacheable
+	 *                (org.springframework.cache.annotation.Cacheable)
 	 * 
 	 * @param nomeCurso
 	 * @param pagina
