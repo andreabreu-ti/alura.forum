@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -47,17 +48,29 @@ public class SecurityConfigurations {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        
-    	http
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers(HttpMethod.GET, "/topicos").permitAll()
-            .requestMatchers(HttpMethod.GET, "/topicos/*").permitAll()
-            .anyRequest().authenticated()
-        )
-        .formLogin(form -> form.permitAll());
+        http
+            // Desativa CSRF (necessário para APIs REST)
+            .csrf(csrf -> csrf.disable())
+
+            // 🚧 Controle de acesso (autorização)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.GET, "/topicos").permitAll()
+                .requestMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+                .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                .anyRequest().authenticated()
+            )
+
+            // Define política de sessão stateless (igual ao código antigo)
+            .sessionManagement(session -> 
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            );
+
+        // Não chamar formLogin() — você está usando API REST, não login via formulário.
 
         return http.build();
     }
+    
+    //.sessionManagement().sessionCreationPolicy(sessionCreationPolicy.STATELESS);
     
 //    /**
 //     * Configura recursos estáticos (JS, CSS, imagens)
