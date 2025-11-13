@@ -45,11 +45,13 @@ public class TopicosController {
 	/**
 	 * Metódo para EXCLUIR tópicos
 	 * 
+	 * @Transactional Comita as informações no banco
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@DeleteMapping("/{id}")
-	@Transactional // Comitar as informações no banco
+	@Transactional
 	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<?> remover(@PathVariable Long id) {
 
@@ -71,7 +73,7 @@ public class TopicosController {
 	 * @return
 	 */
 	@PutMapping("/{id}")
-	@Transactional // Comitar as informações no banco
+	@Transactional
 	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoTopicoForm form) {
 
@@ -100,7 +102,6 @@ public class TopicosController {
 		}
 
 		return ResponseEntity.notFound().build();
-
 	}
 
 	/**
@@ -118,7 +119,7 @@ public class TopicosController {
 	 *        validações criada no TopicoForm
 	 */
 	@PostMapping
-	@Transactional // Comitar as informações no banco
+	@Transactional
 	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 
