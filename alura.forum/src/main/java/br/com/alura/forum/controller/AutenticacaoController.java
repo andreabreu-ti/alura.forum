@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.forum.config.security.TokenService;
+import br.com.alura.forum.controller.dto.TokenDto;
 import br.com.alura.forum.controller.form.LoginForm;
 import jakarta.validation.Valid;
 
@@ -20,27 +21,27 @@ public class AutenticacaoController {
 
 	@Autowired
 	private AuthenticationManager authManager;
-	
+
 	@Autowired
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form) {
+	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form) {
 
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
-		
+
 		try {
-			
+
 			Authentication authentication = authManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authentication);
-			System.out.println(token);
-			return ResponseEntity.ok().build();
-			
+
+			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+
 		} catch (RuntimeException e) {
-			
-			return ResponseEntity.badRequest().build();		
+
+			return ResponseEntity.badRequest().build();
 		}
-		
+
 	}
 }
 
