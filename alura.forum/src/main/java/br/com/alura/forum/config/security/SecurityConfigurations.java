@@ -18,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfigurations {
 
+	@Autowired
+	private TokenService tokenService;
 	
 	@Autowired
 	private AutenticacaoService autenticacaoService;
@@ -64,7 +66,7 @@ public class SecurityConfigurations {
             // Define política de sessão stateless (igual ao código antigo)
             .sessionManagement(session -> 
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new AutenticacaoViaTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class)
             );
 
         // Não chamar formLogin() — você está usando API REST, não login via formulário.

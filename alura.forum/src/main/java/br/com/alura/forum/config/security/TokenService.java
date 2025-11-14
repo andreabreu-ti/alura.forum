@@ -14,10 +14,10 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class TokenService {
 
-	@Value("${alura.forum.jwt.expiration}")
+	@Value("${forum.jwt.expiration}")
 	private String expiration;
 
-	@Value("${alura.forum.jwt.secret}")
+	@Value("${forum.jwt.secret}")
 	private String secret;
 
 	/**
@@ -46,5 +46,19 @@ public class TokenService {
 		return Jwts.builder().setIssuer("API do Forum da Alura").setSubject(logado.getId().toString()).setIssuedAt(hoje)
 				.setExpiration(dataExpiracao).signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
 				.compact();
+	}
+
+	public boolean isTokenValido(String token) {
+
+		try {
+
+			Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
+			return true;
+			
+		} catch (Exception e) {
+			
+			return false;
+		}
+
 	}
 }
