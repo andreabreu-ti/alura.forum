@@ -44,26 +44,3 @@ public class AutenticacaoController {
 
 	}
 }
-
-//@RestController
-//@RequestMapping("/auth")
-//public class AutenticacaoController {
-//	private final AutenticacaoService autenticacaoService;
-//
-//	AutenticacaoController(AutenticacaoService autenticacaoService) {
-//		this.autenticacaoService = autenticacaoService;
-//	}
-//	
-//	@Autowired
-//	private AuthenticationManager authManager;
-//
-//	@PostMapping
-//	public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form) {
-//
-//		System.out.println(form.getEmail());
-//		System.out.println(form.getSenha());
-//
-//		return ResponseEntity.ok().build();
-//
-//	}
-//}
